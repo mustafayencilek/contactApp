@@ -55,17 +55,18 @@ class MainActivity : AppCompatActivity() {
         addContactBt.setOnClickListener {
             val name = contactName.text.toString()
             val number = contactNumber.text.toString()
-            try {
-                val sqlString = "INSERT INTO todotable (name,number) VALUES(?,?)"
-                val statement = database.compileStatement(sqlString)
-                statement.bindString(1, name)
-                statement.bindString(2, number)
-                statement.execute()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
             if (name.isNotEmpty() && number.isNotEmpty() && number.length == 10) {
+                try {
+                    val sqlString = "INSERT INTO todotable (name,number) VALUES(?,?)"
+                    val statement = database.compileStatement(sqlString)
+                    statement.bindString(1, name)
+                    statement.bindString(2, number)
+                    statement.execute()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+
                 val contact: Contact = Contact(name, number)
                 contactadapter.addContact(contact)
                 contactName.text.clear()
